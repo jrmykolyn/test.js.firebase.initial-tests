@@ -7,6 +7,9 @@ function parseResponse( response ) {
 }
 
 function init( config ) {
+    /* -------------------------------------------------- */
+    /* INITIALIZATION */
+    /* -------------------------------------------------- */
     // INIT FIREBASE INSTANCE
     if ( !firebase.apps.length ) {
         firebase.initializeApp( config );
@@ -14,6 +17,7 @@ function init( config ) {
 
     // ALIAS DATABASE AS `db`
     var db = firebase.database();
+
 
     /* -------------------------------------------------- */
     /* TEST: WRITE TO TABLE */
@@ -26,4 +30,13 @@ function init( config ) {
             name: 'Test User ' + id,
             email: id + '@email.com'
         } );
-}
+
+
+    /* -------------------------------------------------- */
+    /* TEST: READ */
+    /* -------------------------------------------------- */
+    db.ref( '/users' )
+        .on( 'value', function( data ) {
+            console.log( data.val() );
+        } );
+} // init()
